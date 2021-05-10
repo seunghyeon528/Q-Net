@@ -34,7 +34,7 @@ if __name__ == '__main__':
     
     # prepare test data
     random.seed(0)    
-    train_label_path = '/home/nas/DB/[DB]_Qnet/train_all_0216.txt'
+    train_label_path = './train_all_0216.txt'
     train_list = prepare_data(train_label_path)
     random.shuffle(train_list)   
     num_valid = int(0.5*len(train_list))
