@@ -22,9 +22,7 @@ import pdb
 ####################################################################
 #                             Prepare Data
 ####################################################################
-# train_list �� ���� 15000 �� list�̸�
-# �� element�� clean ���� �ּ�, dedgraded���� �ּ�, PESQ ���� value�� ���� dictionary ��.
-# ���� clean�� �Ǵ� ���ϸ����� SNR �Ǵ� Noise�� �ܾ ����.
+
 def prepare_data(label_path):
     f = open(label_path)
     lines = f.readlines()
@@ -35,14 +33,14 @@ def prepare_data(label_path):
         temp_slice = lines[i].split("\t")
         temp_path = temp_slice[0]
         temp_PESQ = float(temp_slice[1].strip())
-        temp_PESQ = temp_PESQ/4.5
+        temp_PESQ = temp_PESQ/4.5 # PESQ scaled to range of 0 - 1
         if temp_PESQ < 0:
             temp_PESQ = 0
 
         if "enh" in lines[i]: # the file belongs to nenw 10,000 dataset
                 temp_dic['degraded'] = temp_path
                 temp_dic['PESQ'] = temp_PESQ
-                temp_clean =  (temp_path.replace("/enhance","/target",1)).replace("enh_","tar_") # it should be modified
+                temp_clean =  (temp_path.replace("/enhance","/target",1)).replace("enh_","tar_") 
                 temp_dic['clean'] = temp_clean
                 file_list.append(temp_dic)            
         else:
