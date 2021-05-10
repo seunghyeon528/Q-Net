@@ -39,7 +39,7 @@ class QNet(nn.Module):
         self.fc1 = ut.spectral_norm(nn.Linear(50,50))
         self.fc2 = ut.spectral_norm(nn.Linear(50,10))
         self.fc3 = ut.spectral_norm(nn.Linear(10, 1))
-        self.sigmoid = nn.Sigmoid()
+        self.sigmoid = nn.Sigmoid() # output scaled to range of 0-1
 
     def forward(self,x):
         out = self.layer1(x)
