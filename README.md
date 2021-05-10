@@ -17,17 +17,17 @@ A pytorch implementation of the paper : ["Learning with learned loss function: S
  * Valid : randomly select 100 clean wav files from TIMIT training -> corrupt with unseen noise, 5 SNR levels.
  * Test: randomly select 100 clean wav files from TIMIT test -> corrupt with 4 uneseen noises, 5 SNR levels.
  
-  *Note: We added 10000 more data pair of which degraded speeech is derived from our own SE model to let model to learn a tendency of out SE model.*  
+  *Note: We added 10000 more data pair of which degraded speeech is derived from our own SE model to let Q-net model to learn a tendency of the SE model.*  
   
 **Histogram of final dataset (X-axis = PESQ, Y-axis = number of data)**   
   ![dataset](https://user-images.githubusercontent.com/77431192/117650336-8acb7880-b1cb-11eb-8fab-0d32fb51c3bb.PNG)
 
 
- ## 2. Training Results
+ ## 2. Q-Net Training Results
  Results of plotting all points (true PESQ, inferred PESQ) using test dataset  
  ![training_result](https://user-images.githubusercontent.com/77431192/117636134-7b443380-b1bb-11eb-972c-2f0292cffcc2.PNG)
 
- ## 3. Further research
- We fine-tuned existing SE model after concatenating Q-net, but results was poor. PESQ slightly imporived, while other metric such as SDR degraded. 
+ ## 3. SE Model Fine-tuning Results
+ We fine-tuned existing SE model after concatenating Q-net, but results was poor. PESQ slightly imporived, while other metric such as SDR degraded. Main reason I guess is the data tendency discrepancy. While Q-Net model is trained with TIMIT dataset as proposed in the thesis, We fine-tuned SE model with LRS dataset as we usually did before. 
  
- We also try other fine-tuning method such as GAN-style method proposed in [](), [](). However, 
+ We also tied other fine-tuning method such as GAN-style method first proposed in [Fu, Szu-Wei, et al. "Boosting Objective Scores of a Speech Enhancement Model by MetricGAN Post-processing." 2020 ](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9306484&tag=1), and used stabilization techniques proposed in [Kawanaka, Masaki, et al. "Stable training of DNN for speech enhancement based on perceptually-motivated black-box cost function." ICASSP 2020-2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2020.](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9054578) However, observing loss per epoch graph,  the model dosen't seem converge. 
