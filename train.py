@@ -39,7 +39,7 @@ if __name__ == '__main__':
     random.seed(0) # fixing seed for fixed validation set
 
     # prepare train data
-    train_label_path = '/home/nas/DB/[DB]_Qnet/train_all_0216.txt'
+    train_label_path = '' # directory of txt file containing all data pair directory
     train_list = prepare_data(train_label_path)
     random.shuffle(train_list)   
     num_valid = int(0.1*len(train_list))
