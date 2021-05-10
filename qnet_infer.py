@@ -29,28 +29,18 @@ if __name__ == '__main__':
 
     # Load Bestmodel (Q-Net, Discriminator)
     model = QNet().to(device)
-    # bestmodel_path = '/home/lsh/Q-Net/model_ckpt/model1/0205/learning_rate_0.001_batch_20/bestmodel.pth'
-    bestmodel_path = '/home/lsh/Q-Net/GAN/stabilization_techniques/model_ckpt_2/D_model/Thu Mar 18 17:43:25 2021/learning_rate_0.0002_batch_10/lastmodel.pth'
-    
+    bestmodel_path = './lastmodel.pth'
     model.load_state_dict(torch.load(bestmodel_path,map_location = device))
     
-    # # prepare valid data
-    # valid_label_path = '/home/nas/DB/[DB]_Qnet/val_label.txt'
-    # valid_list = prepare_data(valid_label_path)
-    # print(len(valid_list))
-    # valid_dataset = Mydataset2(valid_list)
-    # val_loader = torch.utils.data.DataLoader(dataset=valid_dataset,batch_size=batch_size,shuffle=False,num_workers=0,collate_fn=lambda x: my_collate(x))
-
     # prepare test data
     random.seed(0)    
-    # test_label_path = '/home/nas/DB/[DB]_Qnet/test_label.txt'
-    # test_list = prepare_data(test_label_path)
     train_label_path = '/home/nas/DB/[DB]_Qnet/train_all_0216.txt'
     train_list = prepare_data(train_label_path)
     random.shuffle(train_list)   
     num_valid = int(0.5*len(train_list))
     valid_list = train_list[len(train_list)-num_valid:len(train_list)]
     print(len(train_list))
+	
     # make valid
     test_dataset = Mydataset2(valid_list)
     test_loader = torch.utils.data.DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=False,num_workers=0,collate_fn=lambda x: my_collate(x))
