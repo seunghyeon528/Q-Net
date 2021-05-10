@@ -36,7 +36,7 @@ if __name__ == '__main__':
     start_epoch = 0
     num_epochs = 100
 
-    random.seed(0)
+    random.seed(0) # fixing seed for fixed validation set
 
     # prepare train data
     train_label_path = '/home/nas/DB/[DB]_Qnet/train_all_0216.txt'
@@ -52,7 +52,6 @@ if __name__ == '__main__':
     train_dataset = Mydataset2(train_list)
     valid_dataset = Mydataset2(valid_list)
     print("dataset done!")
-
 
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset,batch_size=batch_size,shuffle=True,num_workers=0,collate_fn=lambda x: my_collate(x))
     val_loader = torch.utils.data.DataLoader(dataset=valid_dataset,batch_size=batch_size,shuffle=False,num_workers=0,collate_fn=lambda x: my_collate(x))
